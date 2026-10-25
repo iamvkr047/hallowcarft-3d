@@ -7,13 +7,15 @@ export class CarvingCanvas {
   public texture: THREE.CanvasTexture;
   private width: number;
   private height: number;
+  private resScale: number;
   private lastUv: { x: number; y: number } | null = null;
   private history: ImageData[] = [];
   private maxHistory = 15;
 
-  constructor(size = 1024) {
+  constructor(size = 2048) {
     this.width = size;
     this.height = size;
+    this.resScale = size / 1024;
 
     this.canvas = document.createElement('canvas');
     this.canvas.width = this.width;
@@ -24,18 +26,21 @@ export class CarvingCanvas {
       throw new Error('Failed to get 2D rendering context');
     }
     this.ctx = ctx;
+    this.ctx.imageSmoothingEnabled = true;
+    this.ctx.imageSmoothingQuality = 'high';
 
     // Initialize with black (no glow / uncarved)
     this.clear(false);
 
-    // Create Three.js texture
+    // Create Three.js texture with high-quality filtering
     this.texture = new THREE.CanvasTexture(this.canvas);
     this.texture.colorSpace = THREE.SRGBColorSpace;
     this.texture.wrapS = THREE.ClampToEdgeWrapping;
     this.texture.wrapT = THREE.ClampToEdgeWrapping;
-    this.texture.minFilter = THREE.LinearFilter;
+    this.texture.minFilter = THREE.LinearMipmapLinearFilter;
     this.texture.magFilter = THREE.LinearFilter;
-    this.texture.generateMipmaps = false;
+    this.texture.generateMipmaps = true;
+    this.texture.anisotropy = 8;
     this.texture.needsUpdate = true;
   }
 
@@ -81,15 +86,17 @@ export class CarvingCanvas {
     this.saveState();
     this.lastUv = uv;
 
+    const effectiveSize = brushSize * this.resScale;
+
     if (tool === 'triangle' || tool === 'smile' || tool === 'bat') {
-      this.drawStamp(uv, tool, brushSize);
+      this.drawStamp(uv, tool, effectiveSize);
       this.lastUv = null;
       return;
     }
 
     // Draw initial contact point
     const { x, y } = this.uvToCanvas(uv);
-    this.drawGlowPoint(x, y, brushSize, tool === 'eraser');
+    this.drawGlowPoint(x, y, effectiveSize, tool === 'eraser');
     this.texture.needsUpdate = true;
   }
 
@@ -103,6 +110,8 @@ export class CarvingCanvas {
       return; // Stamps only apply once per click
     }
 
+    const effectiveSize = brushSize * this.resScale;
+
     // UV Seam & Disjoint Island Bleed Prevention:
     // If the UV coordinates jump significantly (e.g. crossing a seam boundary or disjoint ribs),
     // do not draw a connecting line across the texture map.
@@ -113,14 +122,14 @@ export class CarvingCanvas {
 
     if (uvDist > MAX_SEAM_JUMP) {
       // Discontinuous jump: draw a point at the new location without connecting line
-      this.drawGlowPoint(curr.x, curr.y, brushSize, tool === 'eraser');
+      this.drawGlowPoint(curr.x, curr.y, effectiveSize, tool === 'eraser');
       this.lastUv = uv;
       this.texture.needsUpdate = true;
       return;
     }
 
     const prev = this.uvToCanvas(this.lastUv);
-    this.drawGlowLine(prev.x, prev.y, curr.x, curr.y, brushSize, tool === 'eraser');
+    this.drawGlowLine(prev.x, prev.y, curr.x, curr.y, effectiveSize, tool === 'eraser');
     this.lastUv = uv;
     this.texture.needsUpdate = true;
   }
@@ -211,7 +220,7 @@ export class CarvingCanvas {
   public drawStamp(uv: { x: number; y: number }, stamp: 'triangle' | 'smile' | 'bat', size: number) {
     const { x, y } = this.uvToCanvas(uv);
     const ctx = this.ctx;
-    // Scaled down stamp size so eyes/mouth fit properly on the pumpkin face
+    // Scaled stamp size so eyes/mouth fit properly on the pumpkin face
     const s = size * 1.1;
 
     ctx.save();
@@ -230,25 +239,34 @@ export class CarvingCanvas {
   }
 
   private renderTriangleStamp(ctx: CanvasRenderingContext2D, s: number) {
-    // Outer fiery border
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // Outer fiery border with stroke antialiasing
     ctx.fillStyle = '#ff4d00';
+    ctx.strokeStyle = '#ff4d00';
+    ctx.lineWidth = Math.max(1.5, s * 0.1);
     ctx.beginPath();
     ctx.moveTo(0, -s);
     ctx.lineTo(s * 0.9, s * 0.8);
     ctx.lineTo(-s * 0.9, s * 0.8);
     ctx.closePath();
     ctx.fill();
+    ctx.stroke();
 
     // Inner bright core
     ctx.fillStyle = '#ffea75';
+    ctx.strokeStyle = '#ffea75';
+    ctx.lineWidth = Math.max(1, s * 0.06);
     ctx.beginPath();
     ctx.moveTo(0, -s * 0.7);
     ctx.lineTo(s * 0.6, s * 0.55);
     ctx.lineTo(-s * 0.6, s * 0.55);
     ctx.closePath();
     ctx.fill();
+    ctx.stroke();
 
-    // Hot center
+    // Hot crisp center
     ctx.fillStyle = '#ffffff';
     ctx.beginPath();
     ctx.moveTo(0, -s * 0.4);
@@ -281,12 +299,18 @@ export class CarvingCanvas {
     };
 
     ctx.fillStyle = '#ff4d00';
+    ctx.strokeStyle = '#ff4d00';
+    ctx.lineWidth = Math.max(1.5, s * 0.08);
     drawMouthPath(1.1);
     ctx.fill();
+    ctx.stroke();
 
     ctx.fillStyle = '#ffd000';
+    ctx.strokeStyle = '#ffd000';
+    ctx.lineWidth = Math.max(1, s * 0.05);
     drawMouthPath(0.85);
     ctx.fill();
+    ctx.stroke();
 
     ctx.fillStyle = '#ffffff';
     drawMouthPath(0.5);
@@ -313,12 +337,18 @@ export class CarvingCanvas {
     };
 
     ctx.fillStyle = '#ff4d00';
+    ctx.strokeStyle = '#ff4d00';
+    ctx.lineWidth = Math.max(1.5, s * 0.08);
     drawBat(1.1);
     ctx.fill();
+    ctx.stroke();
 
     ctx.fillStyle = '#ffd000';
+    ctx.strokeStyle = '#ffd000';
+    ctx.lineWidth = Math.max(1, s * 0.05);
     drawBat(0.85);
     ctx.fill();
+    ctx.stroke();
 
     ctx.fillStyle = '#ffffff';
     drawBat(0.5);

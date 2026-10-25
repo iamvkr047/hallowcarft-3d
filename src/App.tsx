@@ -7,7 +7,7 @@ import { CarvingCanvas } from './utils/carvingCanvas';
 import type { CarveSettings } from './types';
 
 const App: React.FC = () => {
-  const carvingCanvas = useMemo(() => new CarvingCanvas(1024), []);
+  const carvingCanvas = useMemo(() => new CarvingCanvas(2048), []);
   const [canUndo, setCanUndo] = useState(false);
 
   const [settings, setSettings] = useState<CarveSettings>({
