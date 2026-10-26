@@ -16,7 +16,7 @@ export interface StickersType {
   authorName: string;
   fileId: string;
   description?: string;
-  likesCount?: string;
+  likesCount?: number;
   tags?: string[];
   settings?: string;
 }
