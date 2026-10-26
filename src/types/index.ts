@@ -9,3 +9,14 @@ export interface CarveSettings {
   isNightMode: boolean;
   glowIntensity: number;
 }
+
+export interface StickersType {
+  userId: string;
+  title: string;
+  authorName: string;
+  fileId: string;
+  description?: string;
+  likesCount?: string;
+  tags?: string[];
+  settings?: string;
+}
