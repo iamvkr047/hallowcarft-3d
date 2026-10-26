@@ -54,15 +54,17 @@ const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <main className="relative w-screen h-screen overflow-hidden bg-stone-950 font-sans select-none">
+      <main className="flex flex-col w-full h-dvh overflow-hidden bg-stone-950 font-sans select-none">
         <Header mode={settings.mode} isNightMode={settings.isNightMode} />
 
-        <PumpkinScene
-          modelUrl="/Pumpkin.fbx"
-          carvingCanvas={carvingCanvas}
-          settings={settings}
-          onCanUndoChange={setCanUndo}
-        />
+        <div className="flex-1 min-h-0 w-full relative">
+          <PumpkinScene
+            modelUrl="/Pumpkin.fbx"
+            carvingCanvas={carvingCanvas}
+            settings={settings}
+            onCanUndoChange={setCanUndo}
+          />
+        </div>
 
         <Toolbar
           settings={settings}

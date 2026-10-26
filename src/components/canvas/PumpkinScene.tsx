@@ -50,8 +50,8 @@ export const PumpkinScene: React.FC<PumpkinSceneProps> = ({
   return (
     <div
       className={`relative w-full h-full select-none transition-colors duration-700 ${isNight
-          ? 'bg-gradient-to-b from-[#050409] via-[#0d0714] to-[#040307]'
-          : 'bg-gradient-to-b from-stone-950 via-[#18121f] to-stone-950'
+        ? 'bg-gradient-to-b from-[#050409] via-[#0d0714] to-[#040307]'
+        : 'bg-gradient-to-b from-stone-950 via-[#18121f] to-stone-950'
         }`}
     >
       <Canvas

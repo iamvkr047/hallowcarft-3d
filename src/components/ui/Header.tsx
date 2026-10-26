@@ -9,12 +9,12 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ mode, isNightMode }) => {
   return (
-    <header className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 py-4 pointer-events-none">
+    <header className="w-full shrink-0 z-10 flex items-center justify-between px-4 sm:px-6 py-3 select-none">
       <div className="flex items-center gap-3 pointer-events-auto">
         <div
           className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-lg backdrop-blur-md transition-colors ${isNightMode
-              ? 'bg-orange-500/20 border-orange-500/50 text-orange-300 shadow-orange-900/50'
-              : 'bg-orange-600/20 border-orange-500/40 text-orange-400 shadow-orange-950/50'
+            ? 'bg-orange-500/20 border-orange-500/50 text-orange-300 shadow-orange-900/50'
+            : 'bg-orange-600/20 border-orange-500/40 text-orange-400 shadow-orange-950/50'
             }`}
         >
           <Flame className="w-6 h-6 animate-pulse text-orange-400" />
