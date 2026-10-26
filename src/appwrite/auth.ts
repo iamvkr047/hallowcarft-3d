@@ -8,15 +8,21 @@ export const signupUser = async (
   password: string
 ) => {
   try {
-    const response = await account.create({
+    await account.create({
       userId: ID.unique(),
       email: email,
       password: password,
       name: name,
     });
+    // Automatically log in after registration
+    await account.createEmailPasswordSession({
+      email: email,
+      password: password,
+    });
+    const user = await account.get();
     return {
       success: true,
-      data: response,
+      data: user,
       message: "user signup succesfully",
     };
   } catch (error) {
@@ -30,11 +36,12 @@ export const signupUser = async (
 /** LOGIN */
 export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await account.createEmailPasswordSession({
+    await account.createEmailPasswordSession({
       email: email,
       password: password,
     });
-    return { success: true, data: response, message: "user login succesfully" };
+    const user = await account.get();
+    return { success: true, data: user, message: "user login succesfully" };
   } catch (error) {
     return {
       success: false,

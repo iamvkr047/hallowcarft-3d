@@ -1,6 +1,8 @@
 import React from 'react';
-import { Flame, Sparkles, PenTool } from 'lucide-react';
+import { Flame, Sparkles, PenTool, LogOut, User as UserIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import type { AppMode } from '../../types';
+import { useAppDataStore } from '../../zustand/store';
 
 interface HeaderProps {
   mode: AppMode;
@@ -8,6 +10,14 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ mode, isNightMode }) => {
+  const { user, logout } = useAppDataStore();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
   return (
     <header className="w-full shrink-0 z-10 flex items-center justify-between px-4 sm:px-6 py-3 select-none">
       <div className="flex items-center gap-3 pointer-events-auto">
@@ -32,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ mode, isNightMode }) => {
         </div>
       </div>
 
-      <div className="hidden sm:flex items-center gap-3 bg-stone-900/80 backdrop-blur-md border border-stone-800/80 px-4 py-1.5 rounded-full text-xs text-stone-300 pointer-events-auto shadow-md">
+      <div className="hidden md:flex items-center gap-3 bg-stone-900/80 backdrop-blur-md border border-stone-800/80 px-4 py-1.5 rounded-full text-xs text-stone-300 pointer-events-auto shadow-md">
         {mode === 'carve' ? (
           <>
             <PenTool className="w-3.5 h-3.5 text-orange-400 animate-bounce" />
@@ -45,6 +55,33 @@ export const Header: React.FC<HeaderProps> = ({ mode, isNightMode }) => {
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Drag to rotate • Scroll to zoom • Click <strong>Carve Pumpkin</strong> below</span>
           </>
+        )}
+      </div>
+
+      <div className="flex items-center gap-2 pointer-events-auto">
+        {user ? (
+          <div className="flex items-center gap-2 bg-stone-900/80 border border-stone-800/80 px-3 py-1.5 rounded-xl shadow-md backdrop-blur-md">
+            <div className="w-6 h-6 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400">
+              <UserIcon className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-xs text-stone-200 font-medium max-w-[120px] truncate">
+              {user.name || user.email}
+            </span>
+            <button
+              onClick={handleLogout}
+              title="Log Out"
+              className="p-1 rounded-lg text-stone-400 hover:text-red-400 hover:bg-stone-800 transition-colors ml-1 cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => navigate('/login')}
+            className="px-3 py-1.5 text-xs bg-orange-600 hover:bg-orange-500 text-white font-medium rounded-xl transition-all shadow-md cursor-pointer"
+          >
+            Sign In
+          </button>
         )}
       </div>
     </header>
