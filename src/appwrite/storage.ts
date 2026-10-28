@@ -33,3 +33,10 @@ export const getStickerThumbnailUrl = (fileId: string, _width = 400, _height = 4
     fileId
   });
 };
+
+export const downloadStickerThumbnailUrl = (fileId: string) => {
+  return storage.getFileDownload({
+    bucketId: config.APPWRITE_STORAGE_BUCKET_ID,
+    fileId
+  });
+};

@@ -6,9 +6,12 @@ import { Toolbar } from "../components/ui/Toolbar";
 import { PublishModal } from "../components/ui/PublishModal";
 import { CarvingCanvas } from "../utils/carvingCanvas";
 import type { CarveSettings } from "../types";
+import { useAppDataStore } from "../zustand/store";
 
 export const Craft = () => {
     const navigate = useNavigate();
+    const { addSticker } = useAppDataStore();
+
     const carvingCanvas = useMemo(() => new CarvingCanvas(2048), []);
     const [canUndo, setCanUndo] = useState(false);
 
@@ -119,7 +122,8 @@ export const Craft = () => {
                 previewUrl={publishPreviewUrl}
                 imageFile={publishImageFile}
                 settings={settings}
-                onSuccess={() => {
+                onSuccess={(newSticker) => {
+                    addSticker(newSticker);
                     navigate('/dashboard');
                 }}
             />

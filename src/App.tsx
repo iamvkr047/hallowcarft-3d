@@ -7,6 +7,7 @@ import { AuthPage } from './pages/Auth';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { useAppDataStore } from './zustand/store';
 import { Craft } from './pages/Craft';
+import Landing from './pages/Landing2';
 
 const App: React.FC = () => {
   const { checkAuth } = useAppDataStore();
@@ -19,7 +20,7 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<AuthPage />} />
           <Route
             path="/dashboard"
