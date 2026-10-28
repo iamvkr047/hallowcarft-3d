@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Flame, ArrowRight, Sparkles } from "lucide-react";
+import { Flame, ArrowRight, Sparkles, Layers } from "lucide-react";
 import { useAppDataStore } from "../zustand/store";
 
 export const LandingPage: React.FC = () => {
@@ -27,14 +27,23 @@ export const LandingPage: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                     {user ? (
-                        <Link
-                            to="/dashboard"
-                            className="w-full sm:w-auto px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-950/50"
-                        >
-                            <Sparkles className="w-4 h-4" />
-                            <span>Go to Carver</span>
-                            <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        <>
+                            <Link
+                                to="/dashboard"
+                                className="w-full sm:w-auto px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-950/50"
+                            >
+                                <Layers className="w-4 h-4" />
+                                <span>My Dashboard</span>
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+                            <Link
+                                to="/craft"
+                                className="w-full sm:w-auto px-6 py-3 bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2"
+                            >
+                                <Sparkles className="w-4 h-4" />
+                                <span>Open Carver</span>
+                            </Link>
+                        </>
                     ) : (
                         <>
                             <Link
@@ -45,7 +54,7 @@ export const LandingPage: React.FC = () => {
                                 <ArrowRight className="w-4 h-4" />
                             </Link>
                             <Link
-                                to="/dashboard"
+                                to="/craft"
                                 className="w-full sm:w-auto px-6 py-3 bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2"
                             >
                                 <span>Try Crafter</span>

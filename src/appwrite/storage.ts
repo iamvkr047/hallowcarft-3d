@@ -27,11 +27,9 @@ export const deleteStickerImage = async (fileId: string) => {
   }
 };
 
-export const getStickerThumbnailUrl = (fileId: string, width = 400, height = 400) => {
-  return storage.getFilePreview({
+export const getStickerThumbnailUrl = (fileId: string, _width = 400, _height = 400) => {
+  return storage.getFileView({
     bucketId: config.APPWRITE_STORAGE_BUCKET_ID,
-    fileId,
-    width,
-    height,
+    fileId
   });
 };

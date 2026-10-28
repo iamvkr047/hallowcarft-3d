@@ -28,6 +28,29 @@ export const getAllPublishedStickers = async (limit = 25, offset = 0) => {
   }
 };
 
+export const getUserStickers = async (userId: string, limit = 50, offset = 0) => {
+  try {
+    const res = await tablesDb.listRows<UserStickersType>({
+      databaseId: config.APPWRITE_DATABASE_ID,
+      tableId: config.APPWRITE_STICKERS_TABLE_ID,
+      queries: [
+        Query.equal("userId", userId),
+        Query.orderDesc("$createdAt"),
+        Query.limit(limit),
+        Query.offset(offset),
+      ],
+    });
+    return {
+      status: true,
+      data: res.rows,
+      total: res.total,
+      message: "User stickers fetched successfully",
+    };
+  } catch (error) {
+    return { status: false, message: (error as Error).message };
+  }
+};
+
 export const createStickers = async (data: StickersType) => {
   try {
     const res = await tablesDb.createRow<UserStickersType>({
@@ -94,4 +117,18 @@ export const publishStickerWithImage = async (
   }
 };
 
-// TODO: UPDATE AND DELETE Function wrappers
+export const deleteSticker = async (rowId: string, fileId?: string) => {
+  try {
+    await tablesDb.deleteRow({
+      databaseId: config.APPWRITE_DATABASE_ID,
+      tableId: config.APPWRITE_STICKERS_TABLE_ID,
+      rowId,
+    });
+    if (fileId) {
+      await deleteStickerImage(fileId);
+    }
+    return { status: true, message: "Sticker deleted successfully" };
+  } catch (error) {
+    return { status: false, message: (error as Error).message };
+  }
+};

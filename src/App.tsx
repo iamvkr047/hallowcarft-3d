@@ -6,6 +6,7 @@ import { LandingPage } from './pages/Landing';
 import { AuthPage } from './pages/Auth';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { useAppDataStore } from './zustand/store';
+import { Craft } from './pages/Craft';
 
 const App: React.FC = () => {
   const { checkAuth } = useAppDataStore();
@@ -25,6 +26,14 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/craft"
+            element={
+              <ProtectedRoute>
+                <Craft />
               </ProtectedRoute>
             }
           />

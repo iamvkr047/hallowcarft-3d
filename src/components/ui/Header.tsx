@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, Sparkles, PenTool, LogOut, User as UserIcon, Upload } from 'lucide-react';
+import { Flame, Sparkles, PenTool, LogOut, User as UserIcon, Upload, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { AppMode } from '../../types';
 import { useAppDataStore } from '../../zustand/store';
@@ -21,11 +21,14 @@ export const Header: React.FC<HeaderProps> = ({ mode, isNightMode, onPublish }) 
 
   return (
     <header className="w-full shrink-0 z-10 flex items-center justify-between px-4 sm:px-6 py-3 select-none">
-      <div className="flex items-center gap-3 pointer-events-auto">
+      <div
+        onClick={() => navigate('/dashboard')}
+        className="flex items-center gap-3 pointer-events-auto cursor-pointer group"
+      >
         <div
           className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-lg backdrop-blur-md transition-colors ${isNightMode
-            ? 'bg-orange-500/20 border-orange-500/50 text-orange-300 shadow-orange-900/50'
-            : 'bg-orange-600/20 border-orange-500/40 text-orange-400 shadow-orange-950/50'
+            ? 'bg-orange-500/20 border-orange-500/50 text-orange-300 shadow-orange-900/50 group-hover:bg-orange-500/30'
+            : 'bg-orange-600/20 border-orange-500/40 text-orange-400 shadow-orange-950/50 group-hover:bg-orange-600/30'
             }`}
         >
           <Flame className="w-6 h-6 animate-pulse text-orange-400" />
@@ -60,6 +63,14 @@ export const Header: React.FC<HeaderProps> = ({ mode, isNightMode, onPublish }) 
       </div>
 
       <div className="flex items-center gap-2 pointer-events-auto">
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-stone-900/80 hover:bg-stone-800 text-stone-300 hover:text-white font-medium rounded-xl border border-stone-800 transition-all cursor-pointer"
+        >
+          <Layers className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">My Crafts</span>
+        </button>
+
         {onPublish && (
           <button
             onClick={onPublish}
@@ -75,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ mode, isNightMode, onPublish }) 
             <div className="w-6 h-6 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400">
               <UserIcon className="w-3.5 h-3.5" />
             </div>
-            <span className="text-xs text-stone-200 font-medium max-w-[120px] truncate">
+            <span className="text-xs text-stone-200 font-medium max-w-[120px] truncate hidden sm:inline">
               {user.name || user.email}
             </span>
             <button
