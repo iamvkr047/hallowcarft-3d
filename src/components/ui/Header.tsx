@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, Sparkles, PenTool, LogOut, User as UserIcon } from 'lucide-react';
+import { Flame, Sparkles, PenTool, LogOut, User as UserIcon, Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { AppMode } from '../../types';
 import { useAppDataStore } from '../../zustand/store';
@@ -7,9 +7,10 @@ import { useAppDataStore } from '../../zustand/store';
 interface HeaderProps {
   mode: AppMode;
   isNightMode: boolean;
+  onPublish?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ mode, isNightMode }) => {
+export const Header: React.FC<HeaderProps> = ({ mode, isNightMode, onPublish }) => {
   const { user, logout } = useAppDataStore();
   const navigate = useNavigate();
 
@@ -59,6 +60,16 @@ export const Header: React.FC<HeaderProps> = ({ mode, isNightMode }) => {
       </div>
 
       <div className="flex items-center gap-2 pointer-events-auto">
+        {onPublish && (
+          <button
+            onClick={onPublish}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-orange-600 hover:bg-orange-500 text-white font-medium rounded-xl transition-all shadow-md shadow-orange-950/40 cursor-pointer"
+          >
+            <Upload className="w-3.5 h-3.5" />
+            <span>Publish</span>
+          </button>
+        )}
+
         {user ? (
           <div className="flex items-center gap-2 bg-stone-900/80 border border-stone-800/80 px-3 py-1.5 rounded-xl shadow-md backdrop-blur-md">
             <div className="w-6 h-6 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400">

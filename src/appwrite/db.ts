@@ -2,7 +2,7 @@ import { type Models, ID, Query } from "appwrite";
 import { tablesDb } from "./index";
 import { config } from "./config";
 import type { StickersType } from "../types";
-
+import { uploadStickerImage, deleteStickerImage } from "./storage";
 
 export type UserStickersType = Models.DefaultRow & StickersType;
 
@@ -46,6 +46,51 @@ export const createStickers = async (data: StickersType) => {
     };
   } catch (error) {
     return { status: false, message: (error as Error).message };
+  }
+};
+
+/**
+ * Uploads snapshot image to Storage and creates sticker row in DB.
+ * If DB creation fails, automatically rolls back by deleting the uploaded file.
+ */
+export const publishStickerWithImage = async (
+  file: File,
+  data: Omit<StickersType, "fileId">
+) => {
+  // 1. Upload snapshot file
+  const uploadRes = await uploadStickerImage(file);
+  if (!uploadRes.success || !uploadRes.data) {
+    return {
+      status: false,
+      message: uploadRes.message || "Failed to upload sticker image",
+    };
+  }
+
+  const fileId = uploadRes.data.$id;
+
+  // 2. Create database row
+  try {
+    const res = await createStickers({
+      ...data,
+      fileId,
+    });
+
+    if (!res.status) {
+      throw new Error(res.message);
+    }
+
+    return {
+      status: true,
+      data: res.data,
+      message: "Sticker published successfully",
+    };
+  } catch (error) {
+    // 3. Rollback: delete orphaned file
+    await deleteStickerImage(fileId);
+    return {
+      status: false,
+      message: (error as Error).message || "Failed to create sticker record",
+    };
   }
 };
 

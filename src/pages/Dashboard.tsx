@@ -1,13 +1,18 @@
 import { useCallback, useMemo, useState } from "react";
-import { PumpkinScene } from "../components/canvas/PumpkinScene"
-import { Header } from "../components/ui/Header"
-import { Toolbar } from "../components/ui/Toolbar"
+import { PumpkinScene } from "../components/canvas/PumpkinScene";
+import { Header } from "../components/ui/Header";
+import { Toolbar } from "../components/ui/Toolbar";
+import { PublishModal } from "../components/ui/PublishModal";
 import { CarvingCanvas } from "../utils/carvingCanvas";
 import type { CarveSettings } from "../types";
 
 export const Dashboard = () => {
     const carvingCanvas = useMemo(() => new CarvingCanvas(2048), []);
     const [canUndo, setCanUndo] = useState(false);
+
+    const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
+    const [publishPreviewUrl, setPublishPreviewUrl] = useState<string | null>(null);
+    const [publishImageFile, setPublishImageFile] = useState<File | null>(null);
 
     const [settings, setSettings] = useState<CarveSettings>({
         mode: 'rotate',
@@ -51,9 +56,42 @@ export const Dashboard = () => {
         }
     }, []);
 
+    const handleOpenPublish = useCallback(() => {
+        const canvas = document.querySelector('canvas');
+        if (!canvas) {
+            alert('Could not find 3D canvas to capture craft snapshot.');
+            return;
+        }
+
+        try {
+            const dataUrl = canvas.toDataURL('image/png');
+            setPublishPreviewUrl(dataUrl);
+
+            // Convert base64 dataURL to File
+            const byteString = atob(dataUrl.split(',')[1]);
+            const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+            const file = new File([blob], `pumpkin-${Date.now()}.png`, { type: 'image/png' });
+
+            setPublishImageFile(file);
+            setIsPublishModalOpen(true);
+        } catch (err) {
+            console.error('Failed to capture snapshot for publishing:', err);
+        }
+    }, []);
+
     return (
         <main className="flex flex-col w-full h-dvh overflow-hidden bg-stone-950 font-sans select-none">
-            <Header mode={settings.mode} isNightMode={settings.isNightMode} />
+            <Header
+                mode={settings.mode}
+                isNightMode={settings.isNightMode}
+                onPublish={handleOpenPublish}
+            />
 
             <div className="flex-1 min-h-0 w-full relative">
                 <PumpkinScene
@@ -72,6 +110,14 @@ export const Dashboard = () => {
                 onSnapshot={handleSnapshot}
                 canUndo={canUndo}
             />
+
+            <PublishModal
+                isOpen={isPublishModalOpen}
+                onClose={() => setIsPublishModalOpen(false)}
+                previewUrl={publishPreviewUrl}
+                imageFile={publishImageFile}
+                settings={settings}
+            />
         </main>
-    )
-}
+    );
+};
