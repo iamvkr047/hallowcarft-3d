@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import ErrorBoundary from './ErrorBoundry';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Dashboard } from './pages/Dashboard';
-import { LandingPage } from './pages/Landing';
 import { AuthPage } from './pages/Auth';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { useAppDataStore } from './zustand/store';
+import { Craft3D } from './pages/Craft3D';
+import Landing from './pages/Landing';
+import Craft2D from './pages/Craft2D';
 import { Craft } from './pages/Craft';
-import Landing from './pages/Landing2';
+import { Layout } from './pages/Layout';
 
 const App: React.FC = () => {
   const { checkAuth } = useAppDataStore();
@@ -19,26 +21,16 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<AuthPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/craft"
-            element={
-              <ProtectedRoute>
-                <Craft />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<AuthPage />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/craft" element={<ProtectedRoute><Craft /></ProtectedRoute>} />
+            <Route path="/craft3d" element={<ProtectedRoute><Craft3D /></ProtectedRoute>} />
+            <Route path="/craft2d" element={<ProtectedRoute><Craft2D /></ProtectedRoute>} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </ErrorBoundary>
   );

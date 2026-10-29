@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-    Flame,
     Plus,
     Sparkles,
-    LogOut,
-    User as UserIcon,
     RefreshCw,
     Layers,
 } from "lucide-react";
@@ -15,17 +12,16 @@ import { deleteSticker, type UserStickersType } from "../appwrite/db";
 import { getStickerThumbnailUrl } from "../appwrite/storage";
 import { StickerCard } from "../components/card/StickerCard";
 import { StickerPrintTemplate } from "../components/card/StickerPrintTemplate";
+import { primaryBtn } from "../utils/btnUi";
 
 export const Dashboard: React.FC = () => {
     const {
         user,
-        logout,
         stickers,
         isStickersLoading,
         fetchStickers,
         removeSticker,
     } = useAppDataStore();
-    const navigate = useNavigate();
 
     const [isDeletingId, setIsDeletingId] = useState<string | null>(null);
     const [downloadingCraftId, setDownloadingCraftId] = useState<string | null>(null);
@@ -122,52 +118,10 @@ export const Dashboard: React.FC = () => {
         }
     };
 
-    const handleLogout = async () => {
-        await logout();
-        navigate("/login");
-    };
-
     return (
-        <div className="min-h-screen w-full bg-stone-950 text-stone-100 flex flex-col font-sans select-none overflow-y-auto">
-            {/* Top Navbar */}
-            <header className="sticky top-0 z-30 w-full bg-stone-950/80 backdrop-blur-md border-b border-stone-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <Link to="/" className="flex items-center gap-2.5 group">
-                        <div className="w-9 h-9 rounded-xl bg-orange-500/20 border border-orange-500/40 text-orange-400 flex items-center justify-center shadow-lg shadow-orange-950/50 group-hover:bg-orange-500/30 transition-colors">
-                            <Flame className="w-5 h-5 animate-pulse" />
-                        </div>
-                        <div>
-                            <span className="text-base font-bold text-white tracking-tight flex items-center gap-1.5">
-                                HallowCraft <span className="text-orange-500">3D</span>
-                            </span>
-                        </div>
-                    </Link>
-                </div>
-
-                {/* Right Actions */}
-                <div className="flex items-center gap-3">
-                    {user && (
-                        <div className="flex items-center gap-2 bg-stone-900/90 border border-stone-800 px-3 py-1.5 rounded-xl shadow-sm">
-                            <div className="w-6 h-6 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400">
-                                <UserIcon className="w-3.5 h-3.5" />
-                            </div>
-                            <span className="text-xs text-stone-300 font-medium max-w-[120px] truncate hidden sm:inline">
-                                {user.name || user.email}
-                            </span>
-                            <button
-                                onClick={handleLogout}
-                                title="Log Out"
-                                className="p-1 text-stone-400 hover:text-red-400 hover:bg-stone-800 rounded-lg transition-colors ml-0.5 cursor-pointer"
-                            >
-                                <LogOut className="w-3.5 h-3.5" />
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </header>
-
+        <div className="flex-1 w-full flex flex-col font-sans select-none">
             {/* Main Content Area */}
-            <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
+            <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
                 {/* Banner Section */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800/80">
                     <div>
@@ -193,7 +147,8 @@ export const Dashboard: React.FC = () => {
                         </button>
                         <Link
                             to="/craft"
-                            className="flex items-center gap-1.5 px-4 py-2 bg-orange-600/90 hover:bg-orange-500 text-white text-xs font-semibold rounded-xl transition-all shadow-md shadow-orange-950/40"
+                            className={`${primaryBtn} px-4! py-2!`}
+                        // className="flex items-center gap-1.5 px-4 py-2 bg-orange-600/90 hover:bg-orange-500 text-white text-xs font-semibold rounded-xl transition-all shadow-md shadow-orange-950/40"
                         >
                             <Sparkles className="w-3.5 h-3.5" />
                             <span>Open Carver</span>

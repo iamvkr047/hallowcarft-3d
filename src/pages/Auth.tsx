@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Flame, Mail, Lock, User, ArrowRight, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { loginUser, signupUser } from "../appwrite/auth";
 import { useAppDataStore } from "../zustand/store";
+import { primaryBtn } from "../utils/btnUi";
 
 export const AuthPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -99,11 +100,10 @@ export const AuthPage: React.FC = () => {
               setIsSignUp(false);
               setError(null);
             }}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
-              !isSignUp
-                ? "bg-stone-800 text-white shadow-sm"
-                : "text-stone-400 hover:text-stone-200"
-            }`}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${!isSignUp
+              ? "bg-stone-800 text-white shadow-sm"
+              : "text-stone-400 hover:text-stone-200"
+              }`}
           >
             Sign In
           </button>
@@ -113,11 +113,10 @@ export const AuthPage: React.FC = () => {
               setIsSignUp(true);
               setError(null);
             }}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
-              isSignUp
-                ? "bg-stone-800 text-white shadow-sm"
-                : "text-stone-400 hover:text-stone-200"
-            }`}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${isSignUp
+              ? "bg-stone-800 text-white shadow-sm"
+              : "text-stone-400 hover:text-stone-200"
+              }`}
           >
             Sign Up
           </button>
@@ -207,7 +206,8 @@ export const AuthPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-2 py-2.5 px-4 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-600/50 text-white font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-950/50 cursor-pointer disabled:cursor-not-allowed"
+            className={`${primaryBtn} w-full mt-2`}
+          // className="w-full mt-2 py-2.5 px-4 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-600/50 text-white font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-950/50 cursor-pointer disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
