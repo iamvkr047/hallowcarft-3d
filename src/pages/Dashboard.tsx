@@ -68,20 +68,7 @@ export const Dashboard: React.FC = () => {
             const rawImageUrl = getStickerThumbnailUrl(craft.fileId, 800, 800);
 
             // 2. Fetch image as blob and convert to local data URL
-            // This prevents any cross-origin canvas taint issues in html-to-image
             let inlineImageSrc = rawImageUrl;
-            // try {
-            //     const response = await fetch(rawImageUrl);
-            //     const blob = await response.blob();
-            //     inlineImageSrc = await new Promise<string>((resolve, reject) => {
-            //         const reader = new FileReader();
-            //         reader.onloadend = () => resolve(reader.result as string);
-            //         reader.onerror = reject;
-            //         reader.readAsDataURL(blob);
-            //     });
-            // } catch (err) {
-            //     console.warn("Could not inline blob image, using direct URL fallback:", err);
-            // }
 
             // 3. Mount export target into the off-screen template
             setExportTarget({ craft, imageSrc: inlineImageSrc });
