@@ -1,6 +1,6 @@
-import { ID } from "appwrite";
-import { config } from "./config";
-import { storage } from "./index";
+import { ID } from 'appwrite';
+import { config } from './config';
+import { storage } from './index';
 
 export const uploadStickerImage = async (file: File) => {
   try {
@@ -9,7 +9,7 @@ export const uploadStickerImage = async (file: File) => {
       fileId: ID.unique(),
       file,
     });
-    return { success: true, data: res, message: "File uploaded successfully" };
+    return { success: true, data: res, message: 'File uploaded successfully' };
   } catch (error) {
     return { success: false, message: (error as Error).message };
   }
@@ -21,7 +21,7 @@ export const deleteStickerImage = async (fileId: string) => {
       bucketId: config.APPWRITE_STORAGE_BUCKET_ID,
       fileId,
     });
-    return { success: true, message: "File deleted successfully" };
+    return { success: true, message: 'File deleted successfully' };
   } catch (error) {
     return { success: false, message: (error as Error).message };
   }
@@ -30,13 +30,13 @@ export const deleteStickerImage = async (fileId: string) => {
 export const getStickerThumbnailUrl = (fileId: string, _width = 400, _height = 400) => {
   return storage.getFileView({
     bucketId: config.APPWRITE_STORAGE_BUCKET_ID,
-    fileId
+    fileId,
   });
 };
 
 export const downloadStickerThumbnailUrl = (fileId: string) => {
   return storage.getFileDownload({
     bucketId: config.APPWRITE_STORAGE_BUCKET_ID,
-    fileId
+    fileId,
   });
 };

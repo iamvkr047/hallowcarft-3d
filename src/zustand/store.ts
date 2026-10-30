@@ -1,7 +1,7 @@
-import { create } from "zustand";
-import type { Models } from "appwrite";
-import { getUser, logoutUser } from "../appwrite/auth";
-import { getUserStickers, getAllPublishedStickers, type UserStickersType } from "../appwrite/db";
+import { create } from 'zustand';
+import type { Models } from 'appwrite';
+import { getUser, logoutUser } from '../appwrite/auth';
+import { getUserStickers, getAllPublishedStickers, type UserStickersType } from '../appwrite/db';
 
 export interface AppStoreState {
   user: Models.User<Models.Preferences> | null;
@@ -94,7 +94,11 @@ export const useAppDataStore = create<AppStoreState>()((set, get) => ({
     try {
       const res = await getAllPublishedStickers(50);
       if (res.status && res.data) {
-        set({ publishedStickers: res.data, isPublishedStickersLoading: false, hasFetchedPublishedStickers: true });
+        set({
+          publishedStickers: res.data,
+          isPublishedStickersLoading: false,
+          hasFetchedPublishedStickers: true,
+        });
       } else {
         set({ isPublishedStickersLoading: false, hasFetchedPublishedStickers: true });
       }

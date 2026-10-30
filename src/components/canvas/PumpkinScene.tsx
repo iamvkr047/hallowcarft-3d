@@ -21,21 +21,13 @@ const FlickeringCandle: React.FC<{ isNight: boolean }> = ({ isNight }) => {
     if (!lightRef.current) return;
     const t = clock.getElapsedTime();
     const flicker =
-      Math.sin(t * 14) * 0.18 +
-      Math.sin(t * 27) * 0.12 +
-      (Math.random() - 0.5) * 0.08;
+      Math.sin(t * 14) * 0.18 + Math.sin(t * 27) * 0.12 + (Math.random() - 0.5) * 0.08;
 
     lightRef.current.intensity = isNight ? 3.0 + flicker : 1.0 + flicker * 0.5;
   });
 
   return (
-    <pointLight
-      ref={lightRef}
-      position={[0, 0.35, 0.2]}
-      color="#ff8800"
-      distance={5}
-      decay={2}
-    />
+    <pointLight ref={lightRef} position={[0, 0.35, 0.2]} color="#ff8800" distance={5} decay={2} />
   );
 };
 
@@ -49,10 +41,11 @@ export const PumpkinScene: React.FC<PumpkinSceneProps> = ({
 
   return (
     <div
-      className={`relative w-full h-full select-none transition-colors duration-700 ${isNight
-        ? 'bg-gradient-to-b from-[#050409] via-[#0d0714] to-[#040307]'
-        : 'bg-gradient-to-b from-stone-950 via-[#18121f] to-stone-950'
-        }`}
+      className={`relative w-full h-full select-none transition-colors duration-700 ${
+        isNight
+          ? 'bg-gradient-to-b from-[#050409] via-[#0d0714] to-[#040307]'
+          : 'bg-gradient-to-b from-stone-950 via-[#18121f] to-stone-950'
+      }`}
     >
       <Canvas
         shadows
@@ -74,16 +67,8 @@ export const PumpkinScene: React.FC<PumpkinSceneProps> = ({
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
-        <pointLight
-          position={[-4, 2, -2]}
-          intensity={isNight ? 0.2 : 0.8}
-          color="#f97316"
-        />
-        <pointLight
-          position={[3, -1, -3]}
-          intensity={isNight ? 0.1 : 0.4}
-          color="#a855f7"
-        />
+        <pointLight position={[-4, 2, -2]} intensity={isNight ? 0.2 : 0.8} color="#f97316" />
+        <pointLight position={[3, -1, -3]} intensity={isNight ? 0.1 : 0.4} color="#a855f7" />
 
         {/* Flickering Candle Light */}
         <FlickeringCandle isNight={isNight} />

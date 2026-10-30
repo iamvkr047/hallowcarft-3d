@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { X, Sparkles, Loader2, AlertCircle, Tag, FileText, CheckCircle2 } from "lucide-react";
-import { useAppDataStore } from "../../zustand/store";
-import { publishStickerWithImage, type UserStickersType } from "../../appwrite/db";
-import type { CarveSettings } from "../../types";
+import React, { useState } from 'react';
+import { X, Sparkles, Loader2, AlertCircle, Tag, FileText, CheckCircle2 } from 'lucide-react';
+import { useAppDataStore } from '../../zustand/store';
+import { publishStickerWithImage, type UserStickersType } from '../../appwrite/db';
+import type { CarveSettings } from '../../types';
 
 interface PublishModalProps {
   isOpen: boolean;
@@ -23,9 +23,9 @@ export const PublishModal: React.FC<PublishModalProps> = ({
 }) => {
   const { user } = useAppDataStore();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [tagsInput, setTagsInput] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [tagsInput, setTagsInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -35,17 +35,17 @@ export const PublishModal: React.FC<PublishModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) {
-      setError("Please provide a title for your craft.");
+      setError('Please provide a title for your craft.');
       return;
     }
 
     if (!imageFile) {
-      setError("No snapshot image captured. Please try again.");
+      setError('No snapshot image captured. Please try again.');
       return;
     }
 
     if (!user) {
-      setError("You must be logged in to publish a sticker.");
+      setError('You must be logged in to publish a sticker.');
       return;
     }
 
@@ -54,7 +54,7 @@ export const PublishModal: React.FC<PublishModalProps> = ({
 
     // Parse comma-separated tags
     const tags = tagsInput
-      .split(",")
+      .split(',')
       .map((t) => t.trim().toLowerCase())
       .filter((t) => t.length > 0);
 
@@ -76,13 +76,13 @@ export const PublishModal: React.FC<PublishModalProps> = ({
       }
       setTimeout(() => {
         setIsSuccess(false);
-        setTitle("");
-        setDescription("");
-        setTagsInput("");
+        setTitle('');
+        setDescription('');
+        setTagsInput('');
         onClose();
       }, 1500);
     } else {
-      setError(res.message || "Failed to publish craft sticker.");
+      setError(res.message || 'Failed to publish craft sticker.');
     }
   };
 
@@ -144,10 +144,10 @@ export const PublishModal: React.FC<PublishModalProps> = ({
                   )}
                   <div className="absolute bottom-1.5 left-1.5 right-1.5 px-2 py-1 bg-stone-900/85 backdrop-blur-md rounded-md border border-stone-700/50 flex items-center justify-between text-[10px] text-stone-300">
                     <span className="font-semibold text-orange-400 truncate">
-                      {title.trim() || "Pumpkin Sticker"}
+                      {title.trim() || 'Pumpkin Sticker'}
                     </span>
                     <span className="text-stone-400 text-[9px] shrink-0">
-                      by {user?.name || user?.email || "Crafter"}
+                      by {user?.name || user?.email || 'Crafter'}
                     </span>
                   </div>
                 </div>
@@ -251,4 +251,3 @@ export const PublishModal: React.FC<PublishModalProps> = ({
     </div>
   );
 };
-

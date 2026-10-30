@@ -43,10 +43,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               onClick={() => setTool('knife')}
               title="Brush (Freehand Draw)"
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${settings.tool === 'knife'
-                ? 'bg-orange-600 text-white shadow-md shadow-orange-600/40'
-                : 'text-stone-300 hover:bg-stone-800'
-                }`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                settings.tool === 'knife'
+                  ? 'bg-orange-600 text-white shadow-md shadow-orange-600/40'
+                  : 'text-stone-300 hover:bg-stone-800'
+              }`}
             >
               <PenTool className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Brush</span>
@@ -56,10 +57,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               onClick={() => setTool('eraser')}
               title="Eraser (Patch Skin)"
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${settings.tool === 'eraser'
-                ? 'bg-orange-600 text-white shadow-md shadow-orange-600/40'
-                : 'text-stone-300 hover:bg-stone-800'
-                }`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                settings.tool === 'eraser'
+                  ? 'bg-orange-600 text-white shadow-md shadow-orange-600/40'
+                  : 'text-stone-300 hover:bg-stone-800'
+              }`}
             >
               <Eraser className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Eraser</span>
@@ -72,25 +74,26 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               <button
                 onClick={() => setTool('triangle')}
                 title="Stamp: Triangle Eye"
-                className={`p-1.5 rounded-xl text-xs transition-all ${settings.tool === 'triangle'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:bg-stone-800'
-                  }`}
+                className={`p-1.5 rounded-xl text-xs transition-all ${
+                  settings.tool === 'triangle'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:bg-stone-800'
+                }`}
               >
                 <Triangle className="w-4 h-4 fill-current" />
               </button>
               <button
                 onClick={() => setTool('smile')}
                 title="Stamp: Spooky Smile"
-                className={`p-1.5 rounded-xl text-xs transition-all ${settings.tool === 'smile'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:bg-stone-800'
-                  }`}
+                className={`p-1.5 rounded-xl text-xs transition-all ${
+                  settings.tool === 'smile'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:bg-stone-800'
+                }`}
               >
                 <Smile className="w-4 h-4" />
               </button>
             </div>
-
 
             <div className="w-[1px] h-5 bg-stone-700/80 mx-1" />
 
@@ -101,10 +104,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   key={size}
                   onClick={() => onSettingsChange({ brushSize: size })}
                   title={`Brush size: ${idx === 0 ? 'Fine (2px)' : idx === 1 ? 'Medium (4px)' : 'Wide (8px)'}`}
-                  className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${settings.brushSize === size
-                    ? 'bg-stone-700 text-orange-400 border border-orange-500/50'
-                    : 'text-stone-400 hover:bg-stone-800'
-                    }`}
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${
+                    settings.brushSize === size
+                      ? 'bg-stone-700 text-orange-400 border border-orange-500/50'
+                      : 'text-stone-400 hover:bg-stone-800'
+                  }`}
                 >
                   <div
                     className="rounded-full bg-current"
@@ -114,8 +118,6 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               ))}
             </div>
 
-
-
             <div className="w-[1px] h-5 bg-stone-700/80 mx-1" />
 
             {/* Undo & Clear */}
@@ -123,10 +125,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               onClick={onUndo}
               disabled={!canUndo}
               title="Undo"
-              className={`p-1.5 rounded-xl text-xs transition-all ${canUndo
-                ? 'text-stone-200 hover:bg-stone-800'
-                : 'text-stone-600 cursor-not-allowed'
-                }`}
+              className={`p-1.5 rounded-xl text-xs transition-all ${
+                canUndo ? 'text-stone-200 hover:bg-stone-800' : 'text-stone-600 cursor-not-allowed'
+              }`}
             >
               <Undo2 className="w-4 h-4" />
             </button>
@@ -145,10 +146,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           {/* Rotate Mode Button */}
           <button
             onClick={() => setMode('rotate')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${settings.mode === 'rotate'
-              ? 'bg-stone-800 text-white shadow border border-stone-700'
-              : 'text-stone-400 hover:text-stone-200 hover:bg-stone-800/50'
-              }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+              settings.mode === 'rotate'
+                ? 'bg-stone-800 text-white shadow border border-stone-700'
+                : 'text-stone-400 hover:text-stone-200 hover:bg-stone-800/50'
+            }`}
           >
             <Rotate3d className="w-4 h-4 text-orange-400" />
             <span>Rotate 3D</span>
@@ -157,10 +159,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           {/* Carve Mode Button */}
           <button
             onClick={() => setMode('carve')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${settings.mode === 'carve'
-              ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-lg shadow-orange-600/30'
-              : 'text-stone-400 hover:text-stone-200 hover:bg-stone-800/50'
-              }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+              settings.mode === 'carve'
+                ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-lg shadow-orange-600/30'
+                : 'text-stone-400 hover:text-stone-200 hover:bg-stone-800/50'
+            }`}
           >
             <PenTool className="w-4 h-4" />
             <span>Craft Pumpkin</span>
@@ -172,10 +175,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           <button
             onClick={() => onSettingsChange({ isNightMode: !settings.isNightMode })}
             title={settings.isNightMode ? 'Switch to Day Light' : 'Switch to Spooky Night Candle'}
-            className={`p-2 rounded-xl transition-all ${settings.isNightMode
-              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-              : 'text-stone-400 hover:bg-stone-800'
-              }`}
+            className={`p-2 rounded-xl transition-all ${
+              settings.isNightMode
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                : 'text-stone-400 hover:bg-stone-800'
+            }`}
           >
             {settings.isNightMode ? (
               <Moon className="w-4 h-4 fill-amber-400" />

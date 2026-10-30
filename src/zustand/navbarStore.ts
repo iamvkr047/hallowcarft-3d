@@ -1,14 +1,14 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 export interface NavbarStoreState {
   publishHandler: (() => void | Promise<void>) | null;
   setPublishHandler: (fn: (() => void | Promise<void>) | null) => void;
 
   craft3DSettings: {
-    mode: "rotate" | "carve";
+    mode: 'rotate' | 'carve';
     isNightMode: boolean;
   } | null;
-  setCraft3DSettings: (settings: { mode: "rotate" | "carve"; isNightMode: boolean } | null) => void;
+  setCraft3DSettings: (settings: { mode: 'rotate' | 'carve'; isNightMode: boolean } | null) => void;
 }
 
 export const useNavbarStore = create<NavbarStoreState>((set) => ({

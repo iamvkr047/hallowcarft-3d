@@ -17,9 +17,7 @@ export const CanvasLoader: React.FC = () => {
             style={{ width: `${Math.round(progress)}%` }}
           />
         </div>
-        <span className="text-xs text-stone-400 mt-2 font-mono">
-          {Math.round(progress)}%
-        </span>
+        <span className="text-xs text-stone-400 mt-2 font-mono">{Math.round(progress)}%</span>
       </div>
     </Html>
   );

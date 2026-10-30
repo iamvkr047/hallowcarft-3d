@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Flame, Mail, Lock, User, ArrowRight, Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
-import { loginUser, signupUser } from "../appwrite/auth";
-import { useAppDataStore } from "../zustand/store";
-import { primaryBtn } from "../utils/btnUi";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import {
+  Flame,
+  Mail,
+  Lock,
+  User,
+  ArrowRight,
+  Loader2,
+  AlertCircle,
+  Eye,
+  EyeOff,
+} from 'lucide-react';
+import { loginUser, signupUser } from '../appwrite/auth';
+import { useAppDataStore } from '../zustand/store';
+import { primaryBtn } from '../utils/btnUi';
 
 export const AuthPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,7 +30,7 @@ export const AuthPage: React.FC = () => {
   // If already logged in, redirect to dashboard
   useEffect(() => {
     if (user) {
-      navigate("/dashboard", { replace: true });
+      navigate('/dashboard', { replace: true });
     }
   }, [user, navigate]);
 
@@ -29,17 +39,17 @@ export const AuthPage: React.FC = () => {
     setError(null);
 
     if (!email.trim() || !password) {
-      setError("Please fill in all required fields.");
+      setError('Please fill in all required fields.');
       return;
     }
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+      setError('Password must be at least 8 characters long.');
       return;
     }
 
     if (isSignUp && !name.trim()) {
-      setError("Please enter your name.");
+      setError('Please enter your name.');
       return;
     }
 
@@ -50,21 +60,21 @@ export const AuthPage: React.FC = () => {
         const res = await signupUser(name.trim(), email.trim(), password);
         if (res.success && res.data) {
           setUser(res.data);
-          navigate("/dashboard");
+          navigate('/dashboard');
         } else {
-          setError(res.message || "Failed to create account. Please try again.");
+          setError(res.message || 'Failed to create account. Please try again.');
         }
       } else {
         const res = await loginUser(email.trim(), password);
         if (res.success && res.data) {
           setUser(res.data);
-          navigate("/dashboard");
+          navigate('/dashboard');
         } else {
-          setError(res.message || "Invalid email or password.");
+          setError(res.message || 'Invalid email or password.');
         }
       }
     } catch (err) {
-      setError((err as Error).message || "An unexpected error occurred.");
+      setError((err as Error).message || 'An unexpected error occurred.');
     } finally {
       setIsSubmitting(false);
     }
@@ -83,12 +93,12 @@ export const AuthPage: React.FC = () => {
             <Flame className="w-7 h-7 animate-pulse" />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-white">
-            {isSignUp ? "Create an Account" : "Welcome Back"}
+            {isSignUp ? 'Create an Account' : 'Welcome Back'}
           </h1>
           <p className="text-xs text-stone-400 mt-1">
             {isSignUp
-              ? "Join HallowCraft to carve and showcase your pumpkin stickers"
-              : "Sign in to continue carving and managing your crafts"}
+              ? 'Join HallowCraft to carve and showcase your pumpkin stickers'
+              : 'Sign in to continue carving and managing your crafts'}
           </p>
         </div>
 
@@ -100,10 +110,11 @@ export const AuthPage: React.FC = () => {
               setIsSignUp(false);
               setError(null);
             }}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${!isSignUp
-              ? "bg-stone-800 text-white shadow-sm"
-              : "text-stone-400 hover:text-stone-200"
-              }`}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+              !isSignUp
+                ? 'bg-stone-800 text-white shadow-sm'
+                : 'text-stone-400 hover:text-stone-200'
+            }`}
           >
             Sign In
           </button>
@@ -113,10 +124,9 @@ export const AuthPage: React.FC = () => {
               setIsSignUp(true);
               setError(null);
             }}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${isSignUp
-              ? "bg-stone-800 text-white shadow-sm"
-              : "text-stone-400 hover:text-stone-200"
-              }`}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+              isSignUp ? 'bg-stone-800 text-white shadow-sm' : 'text-stone-400 hover:text-stone-200'
+            }`}
           >
             Sign Up
           </button>
@@ -134,9 +144,7 @@ export const AuthPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {isSignUp && (
             <div>
-              <label className="block text-xs font-medium text-stone-300 mb-1.5">
-                Name
-              </label>
+              <label className="block text-xs font-medium text-stone-300 mb-1.5">Name</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-500">
                   <User className="w-4 h-4" />
@@ -154,9 +162,7 @@ export const AuthPage: React.FC = () => {
           )}
 
           <div>
-            <label className="block text-xs font-medium text-stone-300 mb-1.5">
-              Email Address
-            </label>
+            <label className="block text-xs font-medium text-stone-300 mb-1.5">Email Address</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-500">
                 <Mail className="w-4 h-4" />
@@ -173,15 +179,13 @@ export const AuthPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-stone-300 mb-1.5">
-              Password
-            </label>
+            <label className="block text-xs font-medium text-stone-300 mb-1.5">Password</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-500">
                 <Lock className="w-4 h-4" />
               </div>
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -193,11 +197,7 @@ export const AuthPage: React.FC = () => {
                 onClick={() => setShowPassword((prev) => !prev)}
                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-500 hover:text-stone-300 transition-colors"
               >
-                {showPassword ? (
-                  <EyeOff className="w-4 h-4" />
-                ) : (
-                  <Eye className="w-4 h-4" />
-                )}
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
@@ -207,16 +207,16 @@ export const AuthPage: React.FC = () => {
             type="submit"
             disabled={isSubmitting}
             className={`${primaryBtn} w-full mt-2`}
-          // className="w-full mt-2 py-2.5 px-4 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-600/50 text-white font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-950/50 cursor-pointer disabled:cursor-not-allowed"
+            // className="w-full mt-2 py-2.5 px-4 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-600/50 text-white font-medium rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-950/50 cursor-pointer disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>{isSignUp ? "Creating Account..." : "Signing In..."}</span>
+                <span>{isSignUp ? 'Creating Account...' : 'Signing In...'}</span>
               </>
             ) : (
               <>
-                <span>{isSignUp ? "Create Account" : "Sign In"}</span>
+                <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}
@@ -225,10 +225,7 @@ export const AuthPage: React.FC = () => {
 
         {/* Footer Link */}
         <div className="mt-6 pt-4 border-t border-stone-800/80 text-center">
-          <Link
-            to="/"
-            className="text-xs text-stone-400 hover:text-stone-200 transition-colors"
-          >
+          <Link to="/" className="text-xs text-stone-400 hover:text-stone-200 transition-colors">
             ← Back to Home
           </Link>
         </div>

@@ -1,7 +1,7 @@
-import React from "react";
-import { Calendar, Tag, Trash2, Download, Loader2 } from "lucide-react";
-import type { UserStickersType } from "../../appwrite/db";
-import { getStickerThumbnailUrl } from "../../appwrite/storage";
+import React from 'react';
+import { Calendar, Tag, Trash2, Download, Loader2 } from 'lucide-react';
+import type { UserStickersType } from '../../appwrite/db';
+import { getStickerThumbnailUrl } from '../../appwrite/storage';
 
 interface StickerCardProps {
   craft: UserStickersType;
@@ -20,9 +20,9 @@ export const StickerCard: React.FC<StickerCardProps> = ({
 }) => {
   const previewUrl = getStickerThumbnailUrl(craft.fileId, 500, 500);
   const formattedDate = new Date(craft.$createdAt).toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   });
 
   return (
@@ -79,9 +79,7 @@ export const StickerCard: React.FC<StickerCardProps> = ({
             {craft.title}
           </h3>
           {craft.description && (
-            <p className="text-xs text-stone-400 line-clamp-2 mt-1">
-              {craft.description}
-            </p>
+            <p className="text-xs text-stone-400 line-clamp-2 mt-1">{craft.description}</p>
           )}
         </div>
 
@@ -103,4 +101,3 @@ export const StickerCard: React.FC<StickerCardProps> = ({
     </div>
   );
 };
-

@@ -1,5 +1,5 @@
-import { Client, Account, TablesDB, Storage } from "appwrite";
-import { config } from "./config";
+import { Client, Account, TablesDB, Storage } from 'appwrite';
+import { config } from './config';
 
 const client = new Client()
   .setEndpoint(config.APPWRITE_ENDPOINT)

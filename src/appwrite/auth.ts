@@ -1,12 +1,8 @@
-import { ID, OAuthProvider } from "appwrite";
-import { account } from "./index";
+import { ID, OAuthProvider } from 'appwrite';
+import { account } from './index';
 
 /** SIGNUP */
-export const signupUser = async (
-  name: string,
-  email: string,
-  password: string
-) => {
+export const signupUser = async (name: string, email: string, password: string) => {
   try {
     await account.create({
       userId: ID.unique(),
@@ -23,7 +19,7 @@ export const signupUser = async (
     return {
       success: true,
       data: user,
-      message: "user signup succesfully",
+      message: 'user signup succesfully',
     };
   } catch (error) {
     return {
@@ -41,7 +37,7 @@ export const loginUser = async (email: string, password: string) => {
       password: password,
     });
     const user = await account.get();
-    return { success: true, data: user, message: "user login succesfully" };
+    return { success: true, data: user, message: 'user login succesfully' };
   } catch (error) {
     return {
       success: false,
@@ -54,11 +50,11 @@ export const loginUser = async (email: string, password: string) => {
 export const getUser = async () => {
   try {
     const response = await account.get();
-    return { success: true, data: response, message: "found user" };
+    return { success: true, data: response, message: 'found user' };
   } catch (error) {
     return {
       success: false,
-      message: "getUser :: Error: " + (error as Error).message,
+      message: 'getUser :: Error: ' + (error as Error).message,
     };
   }
 };
@@ -92,26 +88,26 @@ export const CreateNewSession = async (userId: string, secret: string) => {
       secret: secret,
       userId: userId,
     });
-    return { success: true, data: session, message: "session create success" };
+    return { success: true, data: session, message: 'session create success' };
   } catch (error) {
     return {
       success: false,
-      message: "getUser :: Error: " + (error as Error).message,
+      message: 'getUser :: Error: ' + (error as Error).message,
     };
   }
 };
 export const getSession = async () => {
   try {
-    const session = await account.getSession({ sessionId: "current" });
+    const session = await account.getSession({ sessionId: 'current' });
     // Provider information
     // console.log(session.provider);
     // console.log(session.providerUid);
     // console.log(session.providerAccessToken);
-    return { success: true, data: session, message: "found session" };
+    return { success: true, data: session, message: 'found session' };
   } catch (error) {
     return {
       success: false,
-      message: "getUser :: Error: " + (error as Error).message,
+      message: 'getUser :: Error: ' + (error as Error).message,
     };
   }
 };
@@ -119,12 +115,12 @@ export const getSession = async () => {
 /** LOGOUT */
 export const logoutUser = async () => {
   try {
-    await account.deleteSession({ sessionId: "current" });
-    return { success: true, message: "logout user" };
+    await account.deleteSession({ sessionId: 'current' });
+    return { success: true, message: 'logout user' };
   } catch (error) {
     return {
       success: false,
-      message: "logoutUser :: Error: " + (error as Error).message,
+      message: 'logoutUser :: Error: ' + (error as Error).message,
     };
   }
 };

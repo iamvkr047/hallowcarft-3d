@@ -1,7 +1,7 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAppDataStore } from "../../zustand/store";
-import { Loader2 } from "lucide-react";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAppDataStore } from '../../zustand/store';
+import { Loader2 } from 'lucide-react';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

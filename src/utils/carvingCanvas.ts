@@ -217,7 +217,11 @@ export class CarvingCanvas {
     ctx.stroke();
   }
 
-  public drawStamp(uv: { x: number; y: number }, stamp: 'triangle' | 'smile' | 'bat', size: number) {
+  public drawStamp(
+    uv: { x: number; y: number },
+    stamp: 'triangle' | 'smile' | 'bat',
+    size: number
+  ) {
     const { x, y } = this.uvToCanvas(uv);
     const ctx = this.ctx;
     // Scaled stamp size so eyes/mouth fit properly on the pumpkin face
