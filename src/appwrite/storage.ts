@@ -1,13 +1,18 @@
-import { ID } from 'appwrite';
+import { ID, Permission, Role } from 'appwrite';
 import { config } from './config';
 import { storage } from './index';
 
-export const uploadStickerImage = async (file: File) => {
+export const uploadStickerImage = async (file: File, userId: string) => {
   try {
     const res = await storage.createFile({
       bucketId: config.APPWRITE_STORAGE_BUCKET_ID,
       fileId: ID.unique(),
       file,
+      permissions: [
+        // Grant update and delete access ONLY to the author
+        Permission.update(Role.user(userId)),
+        Permission.delete(Role.user(userId)),
+      ],
     });
     return { success: true, data: res, message: 'File uploaded successfully' };
   } catch (error) {

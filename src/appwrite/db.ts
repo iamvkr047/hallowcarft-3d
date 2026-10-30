@@ -1,8 +1,9 @@
-import { type Models, ID, Query } from 'appwrite';
+import { type Models, ID, Query, Permission, Role } from 'appwrite';
 import { tablesDb } from './index';
 import { config } from './config';
 import type { StickersType } from '../types';
 import { uploadStickerImage, deleteStickerImage } from './storage';
+import { getUser } from './auth';
 
 export type UserStickersType = Models.DefaultRow & StickersType;
 
@@ -47,7 +48,7 @@ export const getUserStickers = async (userId: string, limit = 50, offset = 0) =>
   }
 };
 
-export const createStickers = async (data: StickersType) => {
+export const createStickers = async (data: StickersType, userId: string) => {
   try {
     const res = await tablesDb.createRow<UserStickersType>({
       rowId: ID.unique(),
@@ -57,6 +58,11 @@ export const createStickers = async (data: StickersType) => {
         ...data,
         likesCount: 0,
       },
+      permissions: [
+        // Grant update and delete access ONLY to the author
+        Permission.update(Role.user(userId)),
+        Permission.delete(Role.user(userId)),
+      ],
     });
     return {
       status: true,
@@ -73,8 +79,16 @@ export const createStickers = async (data: StickersType) => {
  * If DB creation fails, automatically rolls back by deleting the uploaded file.
  */
 export const publishStickerWithImage = async (file: File, data: Omit<StickersType, 'fileId'>) => {
+  // first get loggedin user:
+  const userRes = await getUser();
+  if (!userRes.success || !userRes.data || !userRes.data.$id) {
+    console.log(userRes.message || 'Error fetching User');
+    return;
+  }
+  const userId = userRes.data.$id;
+
   // 1. Upload snapshot file
-  const uploadRes = await uploadStickerImage(file);
+  const uploadRes = await uploadStickerImage(file, userId);
   if (!uploadRes.success || !uploadRes.data) {
     return {
       status: false,
@@ -86,10 +100,13 @@ export const publishStickerWithImage = async (file: File, data: Omit<StickersTyp
 
   // 2. Create database row
   try {
-    const res = await createStickers({
-      ...data,
-      fileId,
-    });
+    const res = await createStickers(
+      {
+        ...data,
+        fileId,
+      },
+      userId
+    );
 
     if (!res.status) {
       throw new Error(res.message);
