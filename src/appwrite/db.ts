@@ -83,7 +83,10 @@ export const publishStickerWithImage = async (file: File, data: Omit<StickersTyp
   const userRes = await getUser();
   if (!userRes.success || !userRes.data || !userRes.data.$id) {
     console.log(userRes.message || 'Error fetching User');
-    return;
+    return {
+      status: false,
+      message: userRes.message || 'Error fetching User',
+    };
   }
   const userId = userRes.data.$id;
 
