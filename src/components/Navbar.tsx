@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
-    Flame,
     ChevronLeft,
     LogOut,
     User as UserIcon,
@@ -27,6 +26,7 @@ export const Navbar: React.FC = () => {
     const isCraftChooser = pathname === "/craft";
     const isCraft2D = pathname === "/craft2d";
     const isCraft3D = pathname === "/craft3d";
+    const isShowcase = pathname === "/showcase";
 
     const handleLogout = async () => {
         await logout();
@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
     // Container width dynamically tuned to page content
     const containerWidthClass = isLanding
         ? "max-w-6xl mx-auto px-5"
-        : isDashboard
+        : (isDashboard || isShowcase)
             ? "max-w-6xl mx-auto px-4 sm:px-8"
             : isCraftChooser
                 ? "max-w-6xl mx-auto px-4 sm:px-8"
@@ -56,7 +56,7 @@ export const Navbar: React.FC = () => {
                                 title="Go Back"
                             >
                                 <ChevronLeft className="w-4 h-4" />
-                                <span className={(isCraft2D || isCraft3D) ? `hidden md:block` : ""}>Back</span>
+                                <span className={(isCraft2D || isCraft3D || isShowcase) ? `hidden md:block` : ""}>Back</span>
                             </button>
                             <div className="h-4 w-px bg-stone-800 hidden sm:block" />
                         </>
@@ -76,18 +76,13 @@ export const Navbar: React.FC = () => {
                             <div className="w-8 h-8 rounded-lg bg-orange-500/20 border border-orange-500/30 text-orange-400 flex items-center justify-center shadow-md shadow-orange-950/40 group-hover:bg-orange-500/30 transition-colors">
                                 <Ghost className="h-4 w-4 text-orange-500 animate-pulse" aria-hidden />
                             </div>
-                            <span className={`${(isCraft2D || isCraft3D) && "hidden md:block"} text-base text-white tracking-tight`}>
+                            <span className={`${(isCraft2D || isCraft3D || isShowcase) && "hidden md:block"} text-base text-white tracking-tight`}>
                                 Hallowcraft
                             </span>
                         </Link>
                     )}
 
                     {/* Studio Sub-Badges */}
-                    {/* {isCraftChooser && (
-                        <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 hidden sm:inline-block">
-                            Studios
-                        </span>
-                    )} */}
                     {isCraft2D && (
                         <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 hidden sm:inline-block">
                             2D Canvas
@@ -98,6 +93,11 @@ export const Navbar: React.FC = () => {
                             3D Carver
                         </span>
                     )}
+                    {isShowcase && (
+                        <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 hidden sm:inline-block">
+                            Showcase
+                        </span>
+                    )}
                 </div>
 
                 {/* Center Section: Navigation Links or Dynamic Context Banners */}
@@ -106,7 +106,7 @@ export const Navbar: React.FC = () => {
                         <div className="hidden items-center gap-8 text-sm text-stone-400 md:flex">
                             <a href="#features" className="transition hover:text-stone-100">Features</a>
                             <a href="#how" className="transition hover:text-stone-100">How it works</a>
-                            <a href="#showcase" className="transition hover:text-stone-100">Showcase</a>
+                            <Link to="/showcase" className="transition hover:text-orange-400">Showcase</Link>
                         </div>
                     )}
 
@@ -169,6 +169,12 @@ export const Navbar: React.FC = () => {
                     {isDashboard && (
                         <>
                             <Link
+                                to="/showcase"
+                                className="hidden sm:inline-block px-3 py-1.5 text-xs text-stone-400 hover:text-orange-300 transition-colors"
+                            >
+                                Showcase
+                            </Link>
+                            <Link
                                 to="/craft"
                                 className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-full bg-orange-500 hover:bg-orange-400 text-stone-950 transition-all shadow-md shadow-orange-950/40 cursor-pointer"
                             >
@@ -192,6 +198,54 @@ export const Navbar: React.FC = () => {
                                         <LogOut className="w-3.5 h-3.5" />
                                     </button>
                                 </div>
+                            )}
+                        </>
+                    )}
+
+                    {isShowcase && (
+                        <>
+                            {user ? (
+                                <>
+                                    <Link
+                                        to="/dashboard"
+                                        className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs bg-stone-900/80 hover:bg-stone-800 text-stone-300 hover:text-white font-medium rounded-xl border border-stone-800 transition-all"
+                                    >
+                                        <Layers className="w-3.5 h-3.5" />
+                                        <span>My Crafts</span>
+                                    </Link>
+                                    <Link to="/craft" className={`${primaryBtn} !px-4 !py-1.5 !text-xs`}>
+                                        <Plus className="w-3.5 h-3.5" />
+                                        <span>Carve</span>
+                                    </Link>
+                                    <div className="flex items-center gap-2 bg-stone-900/90 border border-stone-800 px-3 py-1.5 rounded-xl shadow-sm">
+                                        <div className="w-6 h-6 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400">
+                                            <UserIcon className="w-3.5 h-3.5" />
+                                        </div>
+                                        <span className="text-xs text-stone-300 font-medium max-w-[120px] truncate hidden sm:inline">
+                                            {user.name || user.email}
+                                        </span>
+                                        <button
+                                            onClick={handleLogout}
+                                            title="Log Out"
+                                            className="p-1 text-stone-400 hover:text-red-400 hover:bg-stone-800 rounded-lg transition-colors ml-0.5 cursor-pointer"
+                                        >
+                                            <LogOut className="w-3.5 h-3.5" />
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        to="/login"
+                                        className="px-3 py-2 text-sm text-stone-300 transition hover:text-orange-400"
+                                    >
+                                        Log in
+                                    </Link>
+                                    <Link to="/craft" className={`${primaryBtn} !px-4 !py-1.5 !text-xs`}>
+                                        <Plus className="w-3.5 h-3.5" />
+                                        <span>Carve Pumpkin</span>
+                                    </Link>
+                                </>
                             )}
                         </>
                     )}
