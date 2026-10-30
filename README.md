@@ -2,13 +2,6 @@
 
 > An interactive 2D & 3D Halloween pumpkin crafting experience. Sculpt Jack-o'-Lanterns in a full 3D viewport, design custom stickers in a 2D canvas studio, illuminate your crafting with flickering candlelight, and share your creations with the community!
 
-<!--
-## 🌐 Live Demo & Preview
-Live Demo: [https://hallowcraft.example.com](https://hallowcraft.example.com)
-
-[![HallowCraft Banner](./docs/images/hallowcraft-banner.png)](https://hallowcraft.example.com)
--->
-
 ---
 
 [![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -20,6 +13,12 @@ Live Demo: [https://hallowcraft.example.com](https://hallowcraft.example.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
+
+## Live Demo & Preview
+
+Live Demo: [https://hallowcraft.appwrite.network](https://hallowcraft.appwrite.network)
+
+[![HallowCraft Banner](./Screenshot.png)](https://hallowcraft.appwrite.network)
 
 ## 📖 Table of Contents
 
@@ -161,13 +160,13 @@ Make sure you have installed on your local machine:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/hallowcraft-3d.git
+   git clone https://github.com/iamvkr047/hallowcarft-3d.git
    cd hallowcraft-3d
    ```
 
 2. **Install project dependencies:**
    ```bash
-   npm install
+   pnpm install
    ```
 
 ### Environment Variables
@@ -193,7 +192,7 @@ VITE_APPWRITE_STORAGE_BUCKET_ID="your_storage_bucket_id"
 Start the Vite development server:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open your browser and navigate to `http://localhost:5173` (or the host port indicated in your terminal).
@@ -241,14 +240,14 @@ To enable saving stickers, publishing to the showcase, and user accounts, config
 
 In the project directory, you can run:
 
-| Command                | Action                                                                  |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `npm run dev`          | Starts the local development server with HMR                            |
-| `npm run build`        | Compiles TypeScript and creates an optimized production build in `dist` |
-| `npm run preview`      | Locally preview the production build output                             |
-| `npm run lint`         | Runs ESLint across the codebase                                         |
-| `npm run format`       | Formats all files with Prettier                                         |
-| `npm run format:check` | Verifies code formatting conformance without modifying files            |
+| Command                 | Action                                                                  |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `pnpm run dev`          | Starts the local development server with HMR                            |
+| `pnpm run build`        | Compiles TypeScript and creates an optimized production build in `dist` |
+| `pnpm run preview`      | Locally preview the production build output                             |
+| `pnpm run lint`         | Runs ESLint across the codebase                                         |
+| `pnpm run format`       | Formats all files with Prettier                                         |
+| `pnpm run format:check` | Verifies code formatting conformance without modifying files            |
 
 ---
 
