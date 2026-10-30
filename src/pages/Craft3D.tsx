@@ -38,7 +38,7 @@ export const Craft3D = () => {
   }, [carvingCanvas]);
 
   const handleClear = useCallback(() => {
-    if (window.confirm('Clear all carving on this pumpkin?')) {
+    if (window.confirm('Clear all Craftings on this pumpkin?')) {
       carvingCanvas.clear();
       setCanUndo(false);
     }

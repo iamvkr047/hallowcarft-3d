@@ -117,13 +117,13 @@ function Pumpkin({
 const FEATURES = [
   {
     icon: Box,
-    title: 'Carve in 3D',
+    title: 'Craft in 3D',
     text: 'Spin your pumpkin, pick a shape, and cut eyes, noses, and grins from every angle.',
   },
   {
     icon: Flame,
     title: 'Light it up',
-    text: 'A flickering candle brings each carving to life. Blow it out when it gets too spooky.',
+    text: 'A flickering candle brings each crafting to life. Blow it out when it gets too spooky.',
   },
   {
     icon: Sticker,
@@ -133,7 +133,7 @@ const FEATURES = [
   {
     icon: Users,
     title: 'Join the showcase',
-    text: 'Publish your best work, collect hearts, and see what everyone else carved.',
+    text: 'Publish your best work, collect hearts, and see what everyone else crafted.',
   },
 ];
 
@@ -145,7 +145,7 @@ const STEPS = [
   },
   {
     icon: Flame,
-    title: 'Carve',
+    title: 'Craft',
     text: 'Cut a face, add a candle, and tweak the glow until it feels right.',
   },
   { icon: Share2, title: 'Publish', text: 'Save it as a sticker and share it with the community.' },
@@ -219,7 +219,7 @@ export default function Landing() {
                 Hallow<span className="text-orange-500">Craft</span>
               </h1>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-stone-400">
-                Craft 2D & 3D Jack-o'-Lanterns, carve unique pumpkins, and publish your stickers to
+                Craft 2D & 3D Jack-o'-Lanterns, craft unique pumpkins, and publish your stickers to
                 the community showcase.
               </p>
 
@@ -250,7 +250,7 @@ export default function Landing() {
               <p className="mt-5 text-sm text-stone-500">
                 {user
                   ? 'Welcome back. Your pumpkins are waiting.'
-                  : 'Free to start. No carving knife required.'}
+                  : 'Free to start. No crafting brush required.'}
               </p>
             </div>
 
@@ -286,7 +286,7 @@ export default function Landing() {
         <section id="features" className="scroll-mt-16 border-t border-stone-800/70">
           <div className="mx-auto max-w-6xl px-5 py-20 lg:py-28">
             <h2 className="max-w-lg text-3xl font-bold tracking-tight sm:text-4xl">
-              Everything you need to carve a good one
+              Everything you need to craft a good one
             </h2>
 
             <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-stone-800 bg-stone-800 sm:grid-cols-2">
@@ -388,8 +388,8 @@ export default function Landing() {
                 </h2>
                 <p className="mt-4 text-stone-400">
                   {user
-                    ? 'Pick up where you left off, or start a fresh carving.'
-                    : 'Create a free account, carve a pumpkin, and post it to the showcase.'}
+                    ? 'Pick up where you left off, or start a fresh crafting.'
+                    : 'Create a free account, craft a pumpkin, and post it to the showcase.'}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   {user ? (

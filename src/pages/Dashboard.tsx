@@ -127,7 +127,7 @@ export const Dashboard: React.FC = () => {
               // className="flex items-center gap-1.5 px-4 py-2 bg-orange-600/90 hover:bg-orange-500 text-white text-xs font-semibold rounded-xl transition-all shadow-md shadow-orange-950/40"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Open Carver</span>
+              <span>Open Crafter</span>
             </Link>
           </div>
         </div>
@@ -162,8 +162,8 @@ export const Dashboard: React.FC = () => {
             <div className="space-y-1.5">
               <h2 className="text-xl font-bold text-white">No Crafts Found</h2>
               <p className="text-xs sm:text-sm text-stone-400 max-w-sm">
-                You haven't published any pumpkin craft stickers yet. Enter the 3D carver and create
-                your first masterpiece!
+                You haven't published any pumpkin craft stickers yet. Enter the 3D crafter and
+                create your first masterpiece!
               </p>
             </div>
 
@@ -172,7 +172,7 @@ export const Dashboard: React.FC = () => {
               className="px-6 py-2.5 bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-orange-950/60 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Carve a Pumpkin</span>
+              <span>Craft a Pumpkin</span>
             </Link>
           </div>
         )}

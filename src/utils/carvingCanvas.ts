@@ -29,7 +29,7 @@ export class CarvingCanvas {
     this.ctx.imageSmoothingEnabled = true;
     this.ctx.imageSmoothingQuality = 'high';
 
-    // Initialize with black (no glow / uncarved)
+    // Initialize with black (no glow / uncrafted)
     this.clear(false);
 
     // Create Three.js texture with high-quality filtering

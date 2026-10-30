@@ -36,7 +36,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   return (
     <div className="w-full shrink-0 z-20 flex flex-col items-center px-3 pt-1 pb-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <div className="relative flex flex-col items-center">
-        {/* Sub-panel for Carve Tools & Brush Sizes (floats above main bar without resizing canvas) */}
+        {/* Sub-panel for Craft Tools & Brush Sizes (floats above main bar without resizing canvas) */}
         {settings.mode === 'carve' && (
           <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 z-30 pointer-events-auto flex items-center gap-2 px-3 py-2 bg-stone-900/90 backdrop-blur-md rounded-2xl border border-orange-500/30 shadow-xl shadow-black/60 w-max max-w-[calc(100vw-1.5rem)] overflow-x-auto animate-in fade-in slide-in-from-bottom-2 duration-200">
             {/* Freehand */}
@@ -133,7 +133,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             </button>
             <button
               onClick={onClear}
-              title="Clear all carving"
+              title="Clear all Crafting"
               className="p-1.5 rounded-xl text-xs text-stone-400 hover:text-red-400 hover:bg-stone-800 transition-all"
             >
               <Trash2 className="w-4 h-4" />
@@ -156,7 +156,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <span>Rotate 3D</span>
           </button>
 
-          {/* Carve Mode Button */}
+          {/* Craft Mode Button */}
           <button
             onClick={() => setMode('carve')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${

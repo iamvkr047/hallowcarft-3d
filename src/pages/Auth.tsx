@@ -97,8 +97,8 @@ export const AuthPage: React.FC = () => {
           </h1>
           <p className="text-xs text-stone-400 mt-1">
             {isSignUp
-              ? 'Join HallowCraft to carve and showcase your pumpkin stickers'
-              : 'Sign in to continue carving and managing your crafts'}
+              ? 'Join HallowCraft to craft and showcase your pumpkin stickers'
+              : 'Sign in to continue crafting and managing your crafts'}
           </p>
         </div>
 

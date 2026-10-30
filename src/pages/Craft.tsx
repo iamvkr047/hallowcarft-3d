@@ -25,7 +25,7 @@ export const Craft: React.FC = () => {
             <span>Choose Your Studio</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Which dimension do you want to <span className="text-orange-500">carve</span> in?
+            Which dimension do you want to <span className="text-orange-500">craft</span> in?
           </h1>
           <p className="text-sm sm:text-base text-stone-400 leading-relaxed">
             Design a flat 2D Jack-o'-Lantern with custom stamps and paint bucket fills, or sculpt in
@@ -143,7 +143,7 @@ export const Craft: React.FC = () => {
                   <div className="w-4 h-4 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
                     <Check className="w-2.5 h-2.5" />
                   </div>
-                  <span>360° orbital rotation & surface knife carving</span>
+                  <span>360° orbital rotation & surface knife crafting</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-4 h-4 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
@@ -168,7 +168,7 @@ export const Craft: React.FC = () => {
 
             {/* Action Button */}
             <div className="w-full py-3.5 px-5 rounded-2xl bg-stone-900 group-hover:bg-orange-500 text-stone-200 group-hover:text-stone-950 text-sm font-bold flex items-center justify-between border border-stone-800 group-hover:border-orange-400 transition-all duration-300 shadow-md">
-              <span>Launch 3D Carver</span>
+              <span>Launch 3D Crafter</span>
               <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
           </div>

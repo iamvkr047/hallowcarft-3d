@@ -92,7 +92,7 @@ export const Navbar: React.FC = () => {
           )}
           {isCraft3D && (
             <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 hidden sm:inline-block">
-              3D Carver
+              3D Crafter
             </span>
           )}
           {isShowcase && (
@@ -124,14 +124,14 @@ export const Navbar: React.FC = () => {
                 <>
                   <PenTool className="w-3.5 h-3.5 text-orange-400 animate-bounce" />
                   <span className="text-orange-200">
-                    Drag on pumpkin to carve • Click <strong>Rotate 3D</strong> to turn around
+                    Drag on pumpkin to craft • Click <strong>Rotate 3D</strong> to turn around
                   </span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                   <span>
-                    Drag to rotate • Scroll to zoom • Click <strong>Carve Pumpkin</strong> below
+                    Drag to rotate • Scroll to zoom • Click <strong>Craft Pumpkin</strong> below
                   </span>
                 </>
               )}
@@ -224,7 +224,7 @@ export const Navbar: React.FC = () => {
                   </Link>
                   <Link to="/craft" className={`${primaryBtn} !px-4 !py-1.5 !text-xs`}>
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Carve</span>
+                    <span>Crfat</span>
                   </Link>
                   <div className="flex items-center gap-2 bg-stone-900/90 border border-stone-800 px-3 py-1.5 rounded-xl shadow-sm">
                     <div className="w-6 h-6 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400">
@@ -252,7 +252,7 @@ export const Navbar: React.FC = () => {
                   </Link>
                   <Link to="/craft" className={`${primaryBtn} !px-4 !py-1.5 !text-xs`}>
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Carve Pumpkin</span>
+                    <span>Craft Pumpkin</span>
                   </Link>
                 </>
               )}

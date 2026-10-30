@@ -117,7 +117,7 @@ export const Showcase: React.FC = () => {
               </span>
             </h1>
             <p className="text-sm text-stone-400 mt-1 max-w-xl">
-              Collect and download die-cut Jack-o'-Lantern stickers carved by crafters across the
+              Collect and download die-cut Jack-o'-Lantern stickers crafted by crafters across the
               globe.
             </p>
           </div>
@@ -139,7 +139,7 @@ export const Showcase: React.FC = () => {
               className={`${primaryBtn} !px-4 !py-2 !text-xs sm:!text-sm flex items-center gap-1.5`}
             >
               <Flame className="w-4 h-4" />
-              <span>Carve Your Own</span>
+              <span>Craft Your Own</span>
             </Link>
           </div>
         </div>
@@ -189,7 +189,7 @@ export const Showcase: React.FC = () => {
             <div className="space-y-1.5">
               <h2 className="text-xl font-bold text-white">The Pumpkin Patch is Empty</h2>
               <p className="text-xs sm:text-sm text-stone-400 max-w-sm">
-                No stickers have been published yet. Be the first to carve a pumpkin and share it
+                No stickers have been published yet. Be the first to craft a pumpkin and share it
                 with the world!
               </p>
             </div>
@@ -199,7 +199,7 @@ export const Showcase: React.FC = () => {
               className="px-6 py-2.5 bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-orange-950/60 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Flame className="w-4 h-4" />
-              <span>Carve First Pumpkin</span>
+              <span>Craft First Pumpkin</span>
             </Link>
           </div>
         )}
